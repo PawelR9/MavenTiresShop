@@ -9,6 +9,7 @@ public interface IUserRepository {
     void addUser(User user);
     void addNewUserToDb(User user);
     User findUserByLogin(String login);
+    User changeUserRole(String login);
     Collection<User> getUsers();
 
 }

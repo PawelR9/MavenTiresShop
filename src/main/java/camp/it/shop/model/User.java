@@ -1,6 +1,6 @@
 package camp.it.shop.model;
 
-public class User implements Writable{
+public class User implements Writable {
 
     private String login;
     private String password;
@@ -29,6 +29,10 @@ public class User implements Writable{
 
     public String getRole() {
         return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

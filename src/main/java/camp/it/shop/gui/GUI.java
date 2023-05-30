@@ -32,6 +32,7 @@ public class GUI implements IGUI {
         System.out.println("3. Logout");
         if (core.getSession() != null && core.getSession().getLoggedInUser().getRole().equals(UserRoles.ADMIN)) {
             System.out.println("4. Add products");
+            System.out.println("5. Change user role");
         }
         return scanner.nextLine();
     }
@@ -39,7 +40,7 @@ public class GUI implements IGUI {
     @Override
     public User readLoginAndPassword() {
         System.out.println("Login:");
-        String login = scanner.nextLine();
+        String login = scanner.nextLine().toLowerCase();
         System.out.println("Password:");
         String password = scanner.nextLine();
         return new User(login, password, UserRoles.USER);

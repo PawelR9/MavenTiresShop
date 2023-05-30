@@ -1,6 +1,7 @@
 package camp.it.shop.db;
 
 import camp.it.shop.model.User;
+import camp.it.shop.model.UserRoles;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -31,6 +32,18 @@ public class UserRepository implements IUserRepository {
     @Override
     public User findUserByLogin(String login) {
         return this.users.get(login);
+    }
+
+    @Override
+    public User changeUserRole(String login) {
+        User user = this.users.get(login);
+        if (user != null) {
+            String currentRole = user.getRole();
+            String newRole = currentRole.equals(UserRoles.ADMIN) ? UserRoles.USER : UserRoles.ADMIN;
+            user.setRole(newRole);
+            return user;
+        }
+        return null;
     }
 
     public Collection<User> getUsers() {

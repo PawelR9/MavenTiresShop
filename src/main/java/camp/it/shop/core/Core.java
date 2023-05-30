@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Scanner;
 
 @Component
-public class Core implements ICore{
+public class Core implements ICore {
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -100,6 +101,20 @@ public class Core implements ICore{
                         tiresRepository.addTiresToTheStock(scanner);
                     }
                     break;
+                case "5":
+                    if (!session.getLoggedInUser().getRole().equals(UserRoles.ADMIN)) {
+                        System.out.println("You don't have permission to perform this action");
+                    } else {
+                        System.out.print("Enter the login of the user whose role you want to change: ");
+                        String login = scanner.nextLine().toLowerCase();
+                        User user = userRepository.changeUserRole(login);
+                        if (user != null) {
+                            System.out.println("User role changed successfully.");
+                        } else {
+                            System.out.println("User not found.");
+                        }
+                    }
+                    break;
                 default:
                     System.out.println("Wrong choice!");
                     break;
@@ -110,7 +125,7 @@ public class Core implements ICore{
     @Override
     public void registerNewUser() {
         System.out.println("Enter a new login:");
-        String login = scanner.nextLine();
+        String login = scanner.nextLine().toLowerCase();
         System.out.println("Enter a new password:");
         String password = scanner.nextLine();
         String hashedPassword = authenticator.hashPassword(password);
